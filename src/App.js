@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Navbar, Nav, Button, ListGroup } from 'react-bootstrap';
+import Header from './Header'
+
+import Home from './Home'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Ducks from './Ducks';
+import Korzina from './Korzina';
+import LK from './LK';
+import React, { useState } from 'react';
 
 function App() {
+  const [p, setP] = useState(0);
+  function addP() {
+    setP(p + 1);
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header p ={p}></Header>
+      
+      <Router>
+        <Switch>
+          <Route exact path='/' render={()=><Home func={addP}/>} />
+          <Route exact path='/ducks' render={() => <Ducks func={addP} />} />
+          <Route exact path='/korzina' component={Korzina} />
+          <Route exact path='/lk' component={LK} />
+          
+        </Switch>
+      </Router>
+      
+      
     </div>
   );
 }
